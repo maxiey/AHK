@@ -196,10 +196,12 @@ makeVoiceMeeterTopmost(){
 	;		MsgBox A
 	;		Break
 	;}
-	
-	if WinExist("ahk_exe voicemeeter8x64.exe")
+	if WinExist("ahk_exe voicemeeter8x64.exe"){
 		WinSet, AlwaysOnTop, On
 		WinSet, AlwaysOnTop, Off
+		SetTimer, WindowToBottomAfterSetTime, Off
+		SetTimer, WindowToBottomAfterSetTime, 1500
+	}
 	
 	;WinActivate, ahk_exe voicemeeter8x64.exe
 	;WinSet, AlwaysOnTop, On, ahk_id %wind%
@@ -208,6 +210,13 @@ makeVoiceMeeterTopmost(){
 	
 	Return
 }
+
+WindowToBottomAfterSetTime:
+SetTimer, WindowToBottomAfterSetTime, Off
+if WinExist("ahk_exe voicemeeter8x64.exe"){
+	WinSet, Bottom
+}
+Return
 
 add_vmr_function(func_name) {
 VMR_FUNCTIONS[func_name] := DllCall("GetProcAddress", "Ptr", VMR_MODULE, "AStr", "VBVMR_" . func_name, "Ptr")
