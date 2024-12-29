@@ -7,49 +7,41 @@ I_Icon = %A_ScriptDir%\icons\Tools.ico
 IfExist, %I_Icon%
 Menu, Tray, Icon, %I_Icon%
 
-#SingleInstance, Force	;dont want multiple instances
+#SingleInstance, Force	;dont want multiple 
+#MaxThreadsPerHotkey 3
 
-;sed raw clipboard contents
-^+y::
-FileEncoding UTF-16
-SendRaw %clipboard%
-return
-
-;spam RMB while holding Numpad9
-Numpad9::
-Settimer, SendRMB, 1
+; Autoclicker
+~Right & Numpad4::
+ToggleAutoclicker := !ToggleAutoclicker
+Loop
+{
+	If (!ToggleAutoclicker)
+		Break
+	Click
+	Sleep 1 ; Make this number higher for slower clicks, lower for faster.
+}
 Return
 
-Numpad9 up::
-Settimer, SendRMB, off
+; Autoclicker R Click
+~Right & Numpad5::
+ToggleAutoclickerR := !ToggleAutoclickerR
+Loop
+{
+	If (!ToggleAutoclickerR)
+		Break
+	Click, Right
+	Sleep 1 ; Make this number higher for slower clicks, lower for faster.
+}
 Return
 
-SendRMB:
-Click, Right
-Return
+; Hold LMB
+~Right & Numpad1:: Click, Down
 
-;spam LMB while holding Numpad8
-Numpad8::
-Settimer, SendLMB, 1
-Return
+; Hold RMB
+~Right & Numpad2:: Click, Right, Down
 
-Numpad8 up::
-Settimer, SendLMB, off
-Return
-
-SendLMB:
-Click, Left
-Return
-
-;spam LMB while holding Shift
-*Space::
-Settimer, SendSpacebar, 1
-Return
-
-*Space up::
-Settimer, SendSpacebar, off
-Return
-
-SendSpacebar:
-Send, {Space}
-Return
+; Spam Space While Holding Alt
+;Space::
+;While GetKeyState("Space","P")
+;	Send, {Space}
+;Return

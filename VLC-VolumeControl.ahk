@@ -200,7 +200,7 @@ makeVoiceMeeterTopmost(){
 		WinSet, AlwaysOnTop, On
 		WinSet, AlwaysOnTop, Off
 		SetTimer, WindowToBottomAfterSetTime, Off
-		SetTimer, WindowToBottomAfterSetTime, 1500
+		SetTimer, WindowToBottomAfterSetTime, 4000
 	}
 	
 	;WinActivate, ahk_exe voicemeeter8x64.exe
